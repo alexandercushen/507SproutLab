@@ -1,3 +1,19 @@
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/plant_log')
+def plant_log():
+    return render_template('plant_log.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+'''
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -15,3 +31,4 @@ def post_data():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+'''

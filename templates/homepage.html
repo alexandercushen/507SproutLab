@@ -1,0 +1,39 @@
+<html>
+ <body>
+   <h1>Alex's Seedling Dashboard</h1>
+
+   <!-- Navigation box to Plant Log -->
+   <div style="margin-bottom: 20px;">
+     <a href="{{ url_for('plant_log') }}" 
+        style="display:inline-block; padding:10px 20px; background-color:lightgreen; color:black; text-decoration:none; border-radius:5px;">
+        Go to Plant Log
+     </a>
+   </div>
+
+   <img src="{{ url_for('static', filename='homepage.jpg') }}" width="300">
+
+   <h3>Seedling Time:</h3>
+   <p id="ny-time" style="font-size: 20px;"></p>
+
+   <script>
+    function updateNYTime() {
+     const now = new Date();
+     const options = {
+      timeZone: "America/New_York",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+     };
+     document.getElementById("ny-time").innerHTML =
+      new Intl.DateTimeFormat("en-US", options).format(now);
+    }
+
+    updateNYTime();
+    setInterval(updateNYTime, 1000);
+   </script>
+  </body>
+</html>
+
