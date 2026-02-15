@@ -1,1 +1,38 @@
-[]
+[
+    {
+        "plant_id": "0000",
+        "species": "lettuce",
+        "varietal": "merveille des quatre saisons",
+        "sowing_date": "2026-02-15"
+    },
+    {
+        "plant_id": "0001",
+        "species": "arugula",
+        "varietal": "salad",
+        "sowing_date": "2026-02-15"
+    },
+    {
+        "plant_id": "0002",
+        "species": "lettuce",
+        "varietal": "mesclun",
+        "sowing_date": "2026-02-15"
+    },
+    {
+        "plant_id": "0003",
+        "species": "shallot",
+        "varietal": "zebrune",
+        "sowing_date": "2026-02-15"
+    },
+    {
+        "plant_id": "0004",
+        "species": "onion",
+        "varietal": "flat of italy",
+        "sowing_date": "2026-02-15"
+    },
+    {
+        "plant_id": "0005",
+        "species": "onion",
+        "varietal": "red of florence",
+        "sowing_date": "2026-02-15"
+    }
+]
