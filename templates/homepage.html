@@ -1,14 +1,19 @@
+<!DOCTYPE html>
 <html>
- <body>
-   <h1>Alex's Seedling Dashboard</h1>
 
-   <!-- Navigation box to Plant Log -->
-   <div style="margin-bottom: 20px;">
-     <a href="{{ url_for('plant_log') }}" 
-        style="display:inline-block; padding:10px 20px; background-color:lightgreen; color:black; text-decoration:none; border-radius:5px;">
-        Go to Plant Log
-     </a>
-   </div>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <a href="{{ url_for('homepage') }}" class="button">Dashboard</a>
+    <a href="{{ url_for('plant_log') }}" class="button">Plant Log</a>
+  </div>
+
+   <h1>507SproutLab Dashboard</h1>
 
    <img src="{{ url_for('static', filename='homepage.jpg') }}" width="300">
 

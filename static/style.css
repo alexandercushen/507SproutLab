@@ -1,0 +1,29 @@
+/* Buttons for navigation */
+a.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: lightgreen;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+a.button:hover {
+    background-color: green;
+    color: white;
+}
+
+/* Top navigation bar */
+.navbar {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Optional: body font and spacing */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
