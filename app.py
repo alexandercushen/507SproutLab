@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
+import json
+import os
 
 app = Flask(__name__)
 
@@ -8,27 +10,12 @@ def homepage():
 
 @app.route('/plant_log')
 def plant_log():
-    return render_template('plant_log.html')
+    json_path = os.path.join('data', 'sowing_history.json')
+    with open(json_path, 'r', encoding='utf-8') as f:
+        sowing_data = json.load(f)  # This should be a list of dicts
+
+    return render_template('plant_log.html', sowing_data=sowing_data)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
 
-'''
-from flask import Flask, render_template, request
-
-app = Flask(__name__)
-data_log = []
-
-@app.route('/')
-def index():
-    return render_template('index.html', log=data_log)
-
-@app.route('/post-data')
-def post_data():
-    new_val = request.args.get('val', 'No data')
-    data_log.append(new_val)
-    return f"Data received: {new_val}"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-'''

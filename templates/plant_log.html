@@ -1,7 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Plant Log</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
 </head>
 <body>
 
@@ -13,7 +33,27 @@
 
   <h1>Plant Log</h1>
 
-  <p>Here you can display your plant log data...</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Plant ID</th>
+        <th>Species</th>
+        <th>Varietal</th>
+        <th>Sowing Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in sowing_data %}
+      <tr>
+        <td>{{ entry.plant_id }}</td>
+        <td>{{ entry.species }}</td>
+        <td>{{ entry.varietal }}</td>
+        <td>{{ entry.sowing_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 </body>
 </html>
+
