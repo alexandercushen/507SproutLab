@@ -15,7 +15,11 @@
 
    <h1>507SproutLab Dashboard</h1>
 
-   <img src="{{ url_for('static', filename='homepage.jpg') }}" width="300">
+   <img src="{{ url_for('static', filename='homepage.jpg') }}?t={{ range(1, 10000) | random }}" width="300">
+
+   <div style="margin-top: 10px;">
+     <a href="{{ url_for('take_photo') }}" class="button">Capture New Still</a>
+   </div>
 
    <h3>Seedling Time:</h3>
    <p id="ny-time" style="font-size: 20px;"></p>
