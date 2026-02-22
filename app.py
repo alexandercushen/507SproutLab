@@ -5,13 +5,38 @@ import subprocess
 from flask_apscheduler import APScheduler
 import time
 from datetime import datetime
+import csv
 
 app = Flask(__name__)
 scheduler = APScheduler()
 
+# --- FUNCTIONS ---
+
+def get_homepage_image_time():
+    path = os.path.join('static', 'homepage.jpg')
+    
+    if os.path.exists(path):
+        # Get the time the file was last updated/written
+        mtime = os.path.getmtime(path)
+        # Convert Unix timestamp to a datetime object
+        dt_obj = datetime.fromtimestamp(mtime)
+        # Format it: e.g., "Feb 21, 10:30 PM"
+        return dt_obj.strftime('%b %d, %I:%M %p')
+    
+    return "No image found"
+
+def get_latest_temp_humi_reading():
+    log_path = os.path.join('data', 'temp_humi_log.csv')
+    if os.path.exists(log_path):
+        with open(log_path, 'r') as f:
+            reader = list(csv.DictReader(f))
+            if reader:
+                return reader[-1] # Returns the last row as a dictionary
+    return None
+
 # --- PERIODIC TASKS ---
 
-@scheduler.task('interval', id='do_everything', seconds=30)
+@scheduler.task('interval', id='do_everything', seconds=15)
 def scheduled_job():
 
     print(f"--- Task Started at {datetime.now().strftime('%H:%M:%S')} ---")
@@ -27,10 +52,11 @@ def scheduled_job():
     
     # 3. Take Periodic Photo
     print("Step 3: Taking Photo...")
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M')
-    filename = f"static/archive/still_{timestamp}.jpg"
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"data/images/img_{timestamp}.jpg"
     script_photo = os.path.join(os.getcwd(), 'scripts', 'take_still.py')
     subprocess.run(['python3', script_photo, filename])
+    subprocess.run(['cp', filename, 'static/homepage.jpg'])
 
     print(f"--- Task Finished at {datetime.now().strftime('%H:%M:%S')} ---")
 
@@ -38,7 +64,9 @@ def scheduled_job():
 
 @app.route('/')
 def homepage():
-    return render_template('homepage.html')
+    img_time = get_homepage_image_time()
+    latest = get_latest_temp_humi_reading()
+    return render_template('homepage.html', image_time=img_time, latest=latest)
 
 @app.route('/plant_log')
 def plant_log():

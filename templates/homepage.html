@@ -14,11 +14,34 @@
   </div>
 
    <h1>507SproutLab Dashboard</h1>
-
+   
+   <!--
    <img src="{{ url_for('static', filename='homepage.jpg') }}?t={{ range(1, 10000) | random }}" width="300">
+   -->
 
+   <figure>
+    <img src="{{ url_for('static', filename='homepage.jpg') }}?t={{ range(1, 10000) | random }}" width="500">
+  
+    <figcaption style="margin-top: 10px; color: #666; font-style: italic;">
+    Captured on: {{ image_time }}
+     </figcaption>
+   </figure>
+
+   <!-- Removed photo-on-demand to prevent resource conflict
    <div style="margin-top: 10px;">
      <a href="{{ url_for('take_photo') }}" class="button">Capture New Still</a>
+   </div>
+   -->
+
+   <div class="current-stats" style="margin: 20px 0; padding: 15px; background: #f4f4f4; border-radius: 8px;">
+    <h2>Current Conditions</h2>
+    {% if latest %}
+        <p><strong>Temperature:</strong> {{ latest.Temp }}°C</p>
+        <p><strong>Humidity:</strong> {{ latest.Humidity }}%</p>
+        <p><small>Sensor last checked at: {{ "%02d"|format(latest.Hour|int) }}:{{ "%02d"|format(latest.Minute|int) }}</small></p>
+    {% else %}
+        <p>No sensor data available yet.</p>
+    {% endif %}
    </div>
 
    <h3>Seedling Time:</h3>
