@@ -2,8 +2,39 @@ from flask import Flask, render_template, url_for, redirect
 import json
 import os
 import subprocess
+from flask_apscheduler import APScheduler
+import time
+from datetime import datetime
 
 app = Flask(__name__)
+scheduler = APScheduler()
+
+# --- PERIODIC TASKS ---
+
+@scheduler.task('interval', id='do_everything', seconds=30)
+def scheduled_job():
+
+    print(f"--- Task Started at {datetime.now().strftime('%H:%M:%S')} ---")
+
+    # 1. Take Sensor Reading
+    print("Step 1: Sensor Reading...")
+    script_sensor = os.path.join(os.getcwd(), 'scripts', 'record_temperature_humidity.py')
+    subprocess.run(['python3', script_sensor], stderr=subprocess.DEVNULL) # Supress output, there is a persistant "unable to set line 14 to input" message even when successful
+    
+    # 2. Wait 5 seconds for the GPIO bus to clear
+    print("Step 2: Buffer Sleep...")
+    time.sleep(2)
+    
+    # 3. Take Periodic Photo
+    print("Step 3: Taking Photo...")
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M')
+    filename = f"static/archive/still_{timestamp}.jpg"
+    script_photo = os.path.join(os.getcwd(), 'scripts', 'take_still.py')
+    subprocess.run(['python3', script_photo, filename])
+
+    print(f"--- Task Finished at {datetime.now().strftime('%H:%M:%S')} ---")
+
+# --- ROUTES ---
 
 @app.route('/')
 def homepage():
@@ -32,5 +63,9 @@ def take_photo():
     return redirect(url_for('homepage'))
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    scheduler.init_app(app)
+    scheduler.start()
+
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+    #app.run(host='0.0.0.0', port=5000, debug=True)
 

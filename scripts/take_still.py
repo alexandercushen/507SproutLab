@@ -16,23 +16,25 @@ def main():
         filename = "image.jpg"
 
     # 2. Initialize and start Picamera2
-    picam2 = Picamera2()
-    picam2.configure(picam2.create_still_configuration())
-    picam2.start()
+    with Picamera2() as picam2:
+    	picam2.start()
+	#ipicam2 = Picamera2()
+   	#picam2.configure(picam2.create_still_configuration())
+  	#picam2.start()
 
-    print(f"Capturing image to {filename}...")
+    	print(f"Capturing image to {filename}...")
 
-    # 3. Give the sensor time to adjust exposure/white balance
-    time.sleep(2)
+    	# 3. Give the sensor time to adjust exposure/white balance
+    	time.sleep(2)
 
-    # 4. Capture and cleanup
-    try:
-        picam2.capture_file(filename)
-        print("Done!")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        picam2.stop()
+    	# 4. Capture and cleanup
+    	try:
+            picam2.capture_file(filename)
+            print("Done!")
+    	except Exception as e:
+            print(f"An error occurred: {e}")
+    	finally:
+            picam2.stop()
 
 if __name__ == "__main__":
     main()
