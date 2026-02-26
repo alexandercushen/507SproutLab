@@ -88,6 +88,10 @@ def scheduled_job():
     script_photo = os.path.join(os.getcwd(), 'scripts', 'take_still.py')
     subprocess.run(['python3', script_photo, filename])
     subprocess.run(['cp', filename, 'static/homepage.jpg'])
+    
+    # 4. Check Homepage Image is Lit 
+    print("Checking homepage image")
+    subprocess.run(['python3','analysis_control.py'])
 
     print(f"--- Task Finished at {datetime.now().strftime('%H:%M:%S')} ---")
 
