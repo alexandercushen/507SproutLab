@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Plant Log</title>
+  <title>Analysis</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   <style>
     table {
@@ -32,28 +32,7 @@
     <a href="{{ url_for('analysis') }}" class="button">Analysis</a>
   </div>
 
-  <h1>Plant Log</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Plant ID</th>
-        <th>Species</th>
-        <th>Varietal</th>
-        <th>Sowing Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for entry in sowing_data %}
-      <tr>
-        <td>{{ entry.plant_id }}</td>
-        <td>{{ entry.species }}</td>
-        <td>{{ entry.varietal }}</td>
-        <td>{{ entry.sowing_date }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <h1>Analysis</h1>
 
 </body>
 </html>

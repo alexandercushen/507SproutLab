@@ -12,6 +12,10 @@ contains files for controling the website functioknality
 
 app.py:
 run using "python3 app.py" to host the website locally.
+Using screen allows it to run in the background; to enter the screen, use:
+screen -S sproutlab
+The screen can be left with control + A, then D
+It can be returned to later to check in with screen -r sproutlab
 The website can be made available to the web using "cloudflared tunnel --url http://localhost:5000"
 
 data/:

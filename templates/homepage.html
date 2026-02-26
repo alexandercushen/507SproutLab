@@ -11,6 +11,7 @@
   <div class="navbar">
     <a href="{{ url_for('homepage') }}" class="button">Dashboard</a>
     <a href="{{ url_for('plant_log') }}" class="button">Plant Log</a>
+    <a href="{{ url_for('analysis') }}" class="button">Analysis</a> 
   </div>
 
    <h1>507SproutLab Dashboard</h1>
@@ -27,11 +28,10 @@
      </figcaption>
    </figure>
 
-   <!-- Removed photo-on-demand to prevent resource conflict
+   <!-- Removed photo-on-demand to prevent resource conflict-->
    <div style="margin-top: 10px;">
      <a href="{{ url_for('take_photo') }}" class="button">Capture New Still</a>
    </div>
-   -->
 
    <div class="current-stats" style="margin: 20px 0; padding: 15px; background: #f4f4f4; border-radius: 8px;">
     <h2>Current Conditions</h2>
@@ -66,6 +66,27 @@
     updateNYTime();
     setInterval(updateNYTime, 1000);
    </script>
-  </body>
+ 
+   <hr>
+   <h2>Comments</h2>
+
+   <form action="{{ url_for('post_comment') }}" method="POST" style="margin-bottom: 30px;">
+    <input type="text" name="name" placeholder="Your Name" style="display: block; margin-bottom: 10px; width: 300px;">
+    <textarea name="comment" placeholder="Write a comment..." rows="3" style="width: 100%; max-width: 500px; display: block; margin-bottom: 10px;" required></textarea>
+    <button type="submit">Post Comment</button>
+   </form>
+
+   <div class="comment-feed" style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 15px; background: #fafafa;">
+    {% for c in comments %}
+        <div class="comment-item" style="border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 10px;">
+            <strong>{{ c.name }}</strong> <small style="color: #888;">{{ c.time }}</small>
+            <p style="margin: 5px 0;">{{ c.text }}</p>
+        </div>
+    {% else %}
+        <p>No comments yet. Be the first!</p>
+    {% endfor %}
+   </div>
+
+    </body>
 </html>
 
