@@ -139,6 +139,12 @@ def take_photo():
         subprocess.run(['python3', script_path, 'static/homepage.jpg'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
+        
+    # Save the image timestamp to the static metadata file
+    timestamp = os.path.getmtime('static/homepage.jpg')
+    metadata = {"homepage_jpg_mtime": timestamp}
+    with open('static/homepage_metadata.json', 'w') as f:
+        json.dump(metadata, f)
    
     # Also save this image to data/images
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
