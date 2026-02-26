@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Analysis</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
     table {
       border-collapse: collapse;
@@ -21,6 +22,13 @@
     tr:nth-child(even) {
       background-color: #f9f9f9;
     }
+    .graph-box {
+      background: white;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -33,6 +41,10 @@
   </div>
 
   <h1>Analysis</h1>
+
+  <div class="graph-box">
+    {{ plot_div | safe }}
+  </div>
 
 </body>
 </html>

@@ -6,6 +6,11 @@ from flask_apscheduler import APScheduler
 import time
 from datetime import datetime
 import csv
+import pandas as pd
+import plotly.express as px
+import plotly.offline as opy
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 app = Flask(__name__)
 scheduler = APScheduler()
@@ -104,7 +109,38 @@ def plant_log():
 
 @app.route('/analysis')
 def analysis():
-    return render_template('analysis.html')
+    csv_path = 'data/temp_humi_log.csv'
+    try:
+        df = pd.read_csv(csv_path)
+        df['dt'] = pd.to_datetime(df['Unix'], unit='s', utc=True).dt.tz_convert('America/New_York')
+
+        # 1. Create a figure with a secondary y-axis
+        fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+        # 2. Add Temperature to the Left Axis (Primary)
+        fig.add_trace(
+            go.Scatter(x=df['dt'], y=df['Temp'], name="Temp (°C)", line=dict(color="red")),
+            secondary_y=False,
+        )
+
+        # 3. Add Humidity to the Right Axis (Secondary)
+        fig.add_trace(
+            go.Scatter(x=df['dt'], y=df['Humidity'], name="Humidity (%)", line=dict(color="blue")),
+            secondary_y=True,
+        )
+
+        # 4. Label your axes
+        fig.update_xaxes(title_text="Time")
+        fig.update_yaxes(title_text="<b>Temperature</b> (°C)", color="red", secondary_y=False)
+        fig.update_yaxes(title_text="<b>Humidity</b> (%)", color="blue", secondary_y=True)
+        
+        fig.update_layout(title_text="SproutLab Conditions", hovermode="x unified")
+
+        plot_div = opy.plot(fig, auto_open=False, output_type='div')
+    except Exception as e:
+        plot_div = f"<p>Error: {e}</p>"
+
+    return render_template('analysis.html', plot_div=plot_div)
 
 @app.route('/post-comment', methods=['POST'])
 def post_comment():
