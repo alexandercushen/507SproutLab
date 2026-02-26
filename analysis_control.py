@@ -7,3 +7,6 @@ Perhaps in the future this will be automatically called by app.py, but for now I
 There should also be a button on the "analysis" page that manually refreshes everything
 Lightweight functions can live here, but any detailed analysis will be stored as individual scripts in scripts/
 '''
+
+def check_homepage_image_brightness():
+
