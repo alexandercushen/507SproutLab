@@ -9,11 +9,54 @@ Lightweight functions can live here, but any detailed analysis will be stored as
 '''
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 import os
 import subprocess
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from scripts.utils import get_matching_files
+
+
+''' -------SUPPORTING SCRIPTS --------'''
+def add_moon_decal(img):
+    
+    draw = ImageDraw.Draw(img)
+    
+    # 2. Position and Size
+    x, y = 2000, 80
+    size = 400
+    
+    # 3. DEFINE COLORS
+    navy_blue = (20, 24, 54)      # The dark blue background disk
+    moon_yellow = (255, 255, 200) # The pale yellow crescent
+    
+    # 4. DRAW THE BACKGROUND DISK
+    # This is the solid dark blue circle that stays behind the moon
+    draw.ellipse([x, y, x + size, y + size], fill=navy_blue)
+    
+    # 5. CREATE THE CRESCENT MASK
+    # We create a temporary grayscale image (L) to act as a stencil
+    mask = Image.new('L', (size, size), 0)
+    mask_draw = ImageDraw.Draw(mask)
+    
+    # The 'Visible' part of the stencil (White)
+    mask_draw.ellipse([0, 0, size, size], fill=255)
+    
+    # The 'Bite' taken out of the stencil (Black)
+    # Moving it right (size * 0.3) creates the crescent
+    bite_offset = int(size * 0.3)
+    mask_draw.ellipse([bite_offset, -5, size + bite_offset, size + 5], fill=0)
+    
+    # 6. APPLY THE YELLOW CRESCENT
+    # Create a solid yellow square the size of the moon
+    yellow_layer = Image.new('RGB', (size, size), moon_yellow)
+    
+    # Paste the yellow layer onto the main image at (x, y) 
+    # BUT only through the mask holes
+    img.paste(yellow_layer, (x, y), mask)
+    
+    return img
+
+''' ------ MAIN ANALYSIS SCRIPTS -------'''
 
 def check_homepage_image_brightness(threshold = 50):
     '''
@@ -49,17 +92,13 @@ def check_homepage_image_brightness(threshold = 50):
     '''
     
     image_path = os.path.join('static', 'homepage.jpg')
-    image_path = os.path.join('data/images/', 'img_20260221_234937.jpg')
+    #image_path = os.path.join('data/images/', 'img_20260221_234937.jpg')
     
     if os.path.exists(image_path):
         
         # Read image
         img = Image.open(image_path)
         img_array = np.array(img)
-    
-        # 3. Convert back to an Image object (after you edit the array)
-        # edited_img = Image.fromarray(img_array)
-        # edited_img.save('static/homepage.jpg')
     
     else:
         print("ERROR: static/homepage.jpg not found.")
@@ -68,6 +107,7 @@ def check_homepage_image_brightness(threshold = 50):
     # Compute brightness
     avg_brightness = np.mean(img_array)
     
+    # Decide what to do
     if avg_brightness>threshold:
         print("Current homepage image is well lit, no action necessary.")
         return
@@ -75,11 +115,17 @@ def check_homepage_image_brightness(threshold = 50):
     else:
         print("Current homepage image has the lights off! Fixing that...")
         
-        images = get_matching_files("data/images", "*.jpg")
-        current_image = images[-1]
-        prior_image = images[-2]
+        files = get_matching_files("data/images", "*.jpg")
+        current_image = files[-1]
+        prior_image = files[-2]
         
-        subprocess.run(['cp', prior_image, 'static/homepage.jpg'], check=True)
+        # Open and edit image
+        img = Image.open(prior_image)
+        img = add_moon_decal(img)
+        plt.imshow(img)
+        
+        # Save and delete
+        img.save('static/homepage.jpg')
         subprocess.run(['rm -rf', current_image], check=True)
         
         # Run again to make sure this one is accepted
