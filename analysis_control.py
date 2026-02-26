@@ -11,8 +11,6 @@ Lightweight functions can live here, but any detailed analysis will be stored as
 import numpy as np
 from PIL import Image, ImageDraw
 import os
-import subprocess
-import matplotlib.pyplot as plt
 from scripts.utils import get_matching_files
 
 
@@ -125,7 +123,8 @@ def check_homepage_image_brightness(threshold = 50):
         
         # Save and delete
         img.save('static/homepage.jpg')
-        subprocess.run(['rm -rf', current_image], check=True)
+        if os.path.exists(current_image):
+            os.remove(current_image)
         
         # Run again to make sure this one is accepted
         check_homepage_image_brightness()
