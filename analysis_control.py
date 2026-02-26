@@ -122,7 +122,6 @@ def check_homepage_image_brightness(threshold = 50):
         # Open and edit image
         img = Image.open(prior_image)
         img = add_moon_decal(img)
-        plt.imshow(img)
         
         # Save and delete
         img.save('static/homepage.jpg')
