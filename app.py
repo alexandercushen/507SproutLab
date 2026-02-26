@@ -121,7 +121,13 @@ def take_photo():
         subprocess.run(['python3', script_path, 'static/homepage.jpg'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
-        
+   
+    # Also save this image to data/images
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"data/images/img_{timestamp}.jpg"
+    
+    subprocess.run(['cp', 'static/homepage.jpg', filename], check=True)
+ 
     return redirect(url_for('homepage'))
 
 if __name__ == "__main__":
