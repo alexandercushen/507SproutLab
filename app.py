@@ -13,7 +13,7 @@ scheduler = APScheduler()
 COMMENTS_FILE = os.path.join('data', 'comments.json')
 
 # --- FUNCTIONS ---
-
+'''
 def get_homepage_image_time():
     path = os.path.join('static', 'homepage.jpg')
     
@@ -26,6 +26,24 @@ def get_homepage_image_time():
         return dt_obj.strftime('%b %d, %I:%M %p')
     
     return "No image found"
+'''
+
+def get_homepage_image_time():
+    
+    meta_path = os.path.join('static', 'homepage_metadata.json')
+    
+    if os.path.exists(meta_path):
+        
+        with open(meta_path, 'r') as f:
+            data = json.load(f)
+            mtime =  data.get('homepage_jpg_mtime')
+            
+        # Convert Unix timestamp to a datetime object
+        dt_obj = datetime.fromtimestamp(mtime)
+        # Format it: e.g., "Feb 21, 10:30 PM"
+        return dt_obj.strftime('%b %d, %I:%M %p')
+            
+    return "No homepage.jpg time data found"
 
 def get_latest_temp_humi_reading():
     log_path = os.path.join('data', 'temp_humi_log.csv')

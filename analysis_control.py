@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 import os
 from scripts.utils import get_matching_files
+import json
 
 
 ''' -------SUPPORTING SCRIPTS --------'''
@@ -64,28 +65,6 @@ def check_homepage_image_brightness(threshold = 50):
     and replaces homepage.jpg with the prior image. 
     It runs recursively until getting back to the last lit image.
     If it has overwritten a file, it will add a moon decal to the image.
-    This will probably mess with how homepage.html identifies the time that image was taken...
-    We will address this using static/homepage_metadata.json:
-        
-    import json
-
-    # When you pick a "good" image
-    original_timestamp = "Feb 25, 08:00 PM" # Get this from the filename or its mtime
-    
-    metadata = {"original_time": original_timestamp}
-    with open('static/homepage_metadata.json', 'w') as f:
-        json.dump(metadata, f)
-        
-    ...
-    in app.py:
-        
-    def get_homepage_image_time():
-    meta_path = os.path.join('static', 'homepage_metadata.json')
-    if os.path.exists(meta_path):
-        with open(meta_path, 'r') as f:
-            data = json.load(f)
-            return data.get('original_time')
-    return "No image found"
 
     '''
     
@@ -125,6 +104,13 @@ def check_homepage_image_brightness(threshold = 50):
         img.save('static/homepage.jpg')
         if os.path.exists(current_image):
             os.remove(current_image)
+            
+        # Update homepage metadata
+        original_timestamp = os.path.getmtime(prior_image) 
+        
+        metadata = {"homepage_jpg_mtime": original_timestamp}
+        with open('static/homepage_metadata.json', 'w') as f:
+            json.dump(metadata, f)
         
         # Run again to make sure this one is accepted
         check_homepage_image_brightness()
