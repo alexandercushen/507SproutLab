@@ -34,5 +34,215 @@
         "species": "onion",
         "varietal": "red of florence",
         "sowing_date": "2026-02-15"
+    },
+    {
+        "plant_id": "0006",
+        "species": "lettuce",
+        "varietal": "amaro blend",
+        "sowing_date": "2026-02-26"
+    },
+    {
+        "plant_id": "0007",
+        "species": "lettuce",
+        "varietal": "mesclun",
+        "sowing_date": "2026-02-26"
+    },
+    {
+        "plant_id": "0008",
+        "species": "onion",
+        "varietal": "red of florence",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0009",
+        "species": "onion",
+        "varietal": "flat of italy",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0010",
+        "species": "leek",
+        "varietal": "king richard",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0011",
+        "species": "onion",
+        "varietal": "white lisbon",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0012",
+        "species": "shallot",
+        "varietal": "zebrune",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0013",
+        "species": "radish",
+        "varietal": "easter egg",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0014",
+        "species": "celery",
+        "varietal": "utah",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0015",
+        "species": "radish",
+        "varietal": "french breakfast",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0016",
+        "species": "lettuce",
+        "varietal": "ezrilla",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0017",
+        "species": "lettuce",
+        "varietal": "australe",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0018",
+        "species": "kale",
+        "varietal": "red russian",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0019",
+        "species": "parsley",
+        "varietal": "italian giant",
+        "sowing_date": "2026-03-08"
+    },
+    {
+        "plant_id": "0020",
+        "species": "cabbage",
+        "varietal": "caraflex",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0021",
+        "species": "broccoli",
+        "varietal": "belstar",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0022",
+        "species": "pepper",
+        "varietal": "jimmy nardello",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0023",
+        "species": "tomato",
+        "varietal": "sungold",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0024",
+        "species": "tomato",
+        "varietal": "cherokee purple",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0025",
+        "species": "eggplant",
+        "varietal": "patio baby",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0026",
+        "species": "cauliflower",
+        "varietal": "early snowball x",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0027",
+        "species": "kohlrabi",
+        "varietal": "blend",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0028",
+        "species": "radish",
+        "varietal": "watermelon",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0029",
+        "species": "radish",
+        "varietal": "french breakfast",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0031",
+        "species": "parsley",
+        "varietal": "flat leaf",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0032",
+        "species": "coriander",
+        "varietal": "long standing santo",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0033",
+        "species": "fennel",
+        "varietal": "florence",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0034",
+        "species": "lettuce",
+        "varietal": "tom thumb",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0035",
+        "species": "pepper",
+        "varietal": "serrano",
+        "sowing_date": "2026-03-23"
+    },
+    {
+        "plant_id": "0036",
+        "species": "pepper",
+        "varietal": "cayenne",
+        "sowing_date": "2026-03-24"
+    },
+    {
+        "plant_id": "0037",
+        "species": "pepper",
+        "varietal": "shishito",
+        "sowing_date": "2026-03-24"
+    },
+    {
+        "plant_id": "0038",
+        "species": "cabbage",
+        "varietal": "fidlerkraut",
+        "sowing_date": "2026-03-24"
+    },
+    {
+        "plant_id": "0039",
+        "species": "kale",
+        "varietal": "lacinato",
+        "sowing_date": "2026-03-24"
+    },
+    {
+        "plant_id": "0040",
+        "species": "pepper",
+        "varietal": "anaheim",
+        "sowing_date": "2026-03-24"
+    },
+    {
+        "plant_id": "0041",
+        "species": "tomato",
+        "varietal": "blue cream berry",
+        "sowing_date": "2026-03-24"
     }
 ]

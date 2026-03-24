@@ -88,6 +88,10 @@ def scheduled_job():
     script_photo = os.path.join(os.getcwd(), 'scripts', 'take_still.py')
     subprocess.run(['python3', script_photo, filename])
     subprocess.run(['cp', filename, 'static/homepage.jpg'])
+    timestamp = os.path.getmtime('static/homepage.jpg')
+    metadata = {"homepage_jpg_mtime": timestamp}
+    with open('static/homepage_metadata.json', 'w') as f:
+        json.dump(metadata, f)
     
     # 4. Check Homepage Image is Lit 
     print("Checking homepage image")
