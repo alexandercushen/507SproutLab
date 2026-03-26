@@ -251,7 +251,7 @@ def main():
         print("2: Delete entry by ID")
         print("3: List plant species + varietals")
         print("4: Add sprout date")
-	print("q: Quit")
+        print("q: Quit")
     
         choice = input("\nSelect an option: ").strip()
     
