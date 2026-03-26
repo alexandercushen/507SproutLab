@@ -41,6 +41,7 @@
         <th>Species</th>
         <th>Varietal</th>
         <th>Sowing Date</th>
+        <th>Sprout Date</th>
       </tr>
     </thead>
     <tbody>
@@ -50,7 +51,8 @@
         <td>{{ entry.species }}</td>
         <td>{{ entry.varietal }}</td>
         <td>{{ entry.sowing_date }}</td>
-      </tr>
+        <td>{{ entry.sprout_date if entry.sprout_date is defined else "" }}</td>
+       </tr>
       {% endfor %}
     </tbody>
   </table>

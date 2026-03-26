@@ -82,12 +82,9 @@ def list_entries():
     print("-" * 40)
 
     for entry in data:
-        print(f"{entry['plant_id']}: {entry['species']}, {entry['varietal']}, {entry['sowing_date']}")
-        #print(f"Plant ID: {entry['plant_id']}")
-        #print(f"species: {entry['species']}")
-        #print(f"varietal: {entry['varietal']}")
-        #print(f"Sowing Date: {entry['sowing_date']}")
-        #print("-" * 40)
+        sprout_str = f", sprouted {entry['sprout_date']}" if 'sprout_date' in entry else ""
+        print(f"{entry['plant_id']}: {entry['species']}, {entry['varietal']}, sown {entry['sowing_date']}{sprout_str}")
+        
         
     print("-" * 40)
         
@@ -203,9 +200,8 @@ def list_species():
 
 def add_sprout_date():
     plant_id = input("Which entry number? ").strip().zfill(4)
-    
-    with open('sowing_data.json', 'r') as f:
-        data = json.load(f)
+
+    data = load_data()
     
     # Find the entry
     entry = next((e for e in data if e['plant_id'] == plant_id), None)
@@ -230,8 +226,7 @@ def add_sprout_date():
     
     entry['sprout_date'] = sprout_date
     
-    with open('sowing_data.json', 'w') as f:
-        json.dump(data, f, indent=4)
+    save_data(data)
     
     print(f"Sprout date {sprout_date} added to entry {plant_id}.")
 
