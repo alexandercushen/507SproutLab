@@ -201,6 +201,40 @@ def list_species():
     print()  # extra newline
     
 
+def add_sprout_date():
+    plant_id = input("Which entry number? ").strip().zfill(4)
+    
+    with open('sowing_data.json', 'r') as f:
+        data = json.load(f)
+    
+    # Find the entry
+    entry = next((e for e in data if e['plant_id'] == plant_id), None)
+    if entry is None:
+        print(f"No entry found with ID {plant_id}.")
+        return
+    
+    species = entry['species']
+    varietal = entry['varietal']
+    
+    date_input = input(f"When did {species}, {varietal} sprout? (YYYY-MM-DD, or Enter for today): ").strip()
+    
+    if date_input == "":
+        sprout_date = datetime.today().strftime('%Y-%m-%d')
+    else:
+        try:
+            datetime.strptime(date_input, '%Y-%m-%d')  # validate format
+            sprout_date = date_input
+        except ValueError:
+            print("Invalid date format. Please use YYYY-MM-DD.")
+            return
+    
+    entry['sprout_date'] = sprout_date
+    
+    with open('sowing_data.json', 'w') as f:
+        json.dump(data, f, indent=4)
+    
+    print(f"Sprout date {sprout_date} added to entry {plant_id}.")
+
 # -----------------------------
 # Menu
 # -----------------------------
@@ -216,7 +250,8 @@ def main():
         print("1: Add new plant sowing")
         print("2: Delete entry by ID")
         print("3: List plant species + varietals")
-        print("q: Quit")
+        print("4: Add sprout date")
+	print("q: Quit")
     
         choice = input("\nSelect an option: ").strip()
     
@@ -228,6 +263,8 @@ def main():
             delete_entry_by_id()
         elif choice == "3":
             list_species()
+        elif choice == "4":
+            add_sprout_date()
         elif choice == "q":
             print("Goodbye.")
         else:

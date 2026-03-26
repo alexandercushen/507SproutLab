@@ -17,6 +17,7 @@ screen -S sproutlab
 The screen can be left with control + A, then D
 It can be returned to later to check in with screen -r sproutlab
 The website can be made available to the web using "cloudflared tunnel --url http://localhost:5000"
+To push it using my domain name, alexandercushen.space, use: "cloudflared tunnel run my-tunnel"
 
 data/:
 contains all of the records of plant growth

@@ -4,13 +4,15 @@ import os
 import subprocess
 from flask_apscheduler import APScheduler
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 import csv
 import pandas as pd
 import plotly.express as px
 import plotly.offline as opy
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import glob
+from PIL import Image
 
 app = Flask(__name__)
 scheduler = APScheduler()
@@ -65,6 +67,37 @@ def get_comments():
             return json.load(f)
     return []
 
+def generate_gif(n_days=7):
+    image_dir = os.path.join(os.path.dirname(__file__), "data/images")
+    output_path = os.path.join(os.path.dirname(__file__), "static/timelapse.gif")
+
+    cutoff = datetime.now() - timedelta(days=n_days)
+
+    image_paths = sorted(glob.glob(os.path.join(image_dir, "img_*.jpg")))
+
+    # Filter by parsing the date from the filename
+    filtered_paths = []
+    for path in image_paths:
+        filename = os.path.basename(path)
+        try:
+            dt = datetime.strptime(filename, "img_%Y%m%d_%H%M%S.jpg")
+            if dt >= cutoff:
+                filtered_paths.append(path)
+        except ValueError:
+            continue
+
+    if not filtered_paths:
+        return
+
+    frames = [Image.open(p) for p in filtered_paths]
+    frames[0].save(
+        output_path,
+        save_all=True,
+        append_images=frames[1:],
+        duration=100,
+        loop=0
+    )
+
 # --- PERIODIC TASKS ---
 
 @scheduler.task('cron', id='do_everything', minute='0,30')
@@ -96,6 +129,11 @@ def scheduled_job():
     # 4. Check Homepage Image is Lit 
     print("Checking homepage image")
     subprocess.run(['python3','analysis_control.py'])
+
+    # 5. Compile a gif (once a day, of the last week)
+    if now.hour == 0 and now.minute < 10:
+        print("Step 5: Generating GIF...")
+        generate_gif(n_days=3)
 
     print(f"--- Task Finished at {datetime.now().strftime('%H:%M:%S')} ---")
 

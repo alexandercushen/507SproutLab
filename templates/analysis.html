@@ -46,6 +46,11 @@
     {{ plot_div | safe }}
   </div>
 
+<div class="graph-box">
+    <h2>{{"Recent growth:"}}</h2>
+    <img src="{{ url_for('static', filename='timelapse.gif') }}" alt="Timelapse" style="width: 100%; border-radius: 4px;">
+  </div>
+
 </body>
 </html>
 
