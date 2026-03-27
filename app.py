@@ -12,7 +12,8 @@ import plotly.offline as opy
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import glob
-from PIL import Image
+import shutil
+from PIL import Image, ImageDraw, ImageFont
 
 app = Flask(__name__)
 scheduler = APScheduler()
@@ -67,7 +68,7 @@ def get_comments():
             return json.load(f)
     return []
 
-def generate_gif(n_days=7):
+def generate_timelapse_gif(n_days=7):
     image_dir = os.path.join(os.path.dirname(__file__), "data/images")
     output_path = os.path.join(os.path.dirname(__file__), "static/timelapse.gif")
 
@@ -97,6 +98,58 @@ def generate_gif(n_days=7):
         duration=100,
         loop=0
     )
+
+def generate_timelapse_mp4(n_days=7):
+    image_dir = os.path.join(os.path.dirname(__file__), "data/images")
+    output_path = os.path.join(os.path.dirname(__file__), "static/timelapse.mp4")
+    tmp_dir = os.path.join(os.path.dirname(__file__), "data/tmp_timelapse")
+
+    cutoff = datetime.now() - timedelta(days=n_days)
+
+    image_paths = sorted(glob.glob(os.path.join(image_dir, "img_*.jpg")))
+
+    filtered_paths = []
+    filtered_dts = []
+    for path in image_paths:
+        filename = os.path.basename(path)
+        try:
+            dt = datetime.strptime(filename, "img_%Y%m%d_%H%M%S.jpg")
+            if dt >= cutoff:
+                filtered_paths.append(path)
+                filtered_dts.append(dt)
+        except ValueError:
+            continue
+
+    if not filtered_paths:
+        return
+
+    os.makedirs(tmp_dir, exist_ok=True)
+
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 36)
+
+    for i, (path, dt) in enumerate(zip(filtered_paths, filtered_dts)):
+        img = Image.open(path).convert("RGB")
+        draw = ImageDraw.Draw(img)
+
+        timestamp_str = dt.strftime("%Y-%m-%d %H:%M")
+
+        # Draw shadow for readability, then text on top
+        x, y = 20, 20
+        draw.text((x+2, y+2), timestamp_str, font=font, fill=(0, 0, 0))
+        draw.text((x, y), timestamp_str, font=font, fill=(255, 255, 255))
+
+        img.save(os.path.join(tmp_dir, f"frame_{i:05d}.jpg"))
+
+    subprocess.run([
+        "ffmpeg", "-y",
+        "-framerate", "10",
+        "-i", os.path.join(tmp_dir, "frame_%05d.jpg"),
+        "-vcodec", "libx264",
+        "-pix_fmt", "yuv420p",
+        output_path
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    shutil.rmtree(tmp_dir)
 
 # --- PERIODIC TASKS ---
 
@@ -132,10 +185,15 @@ def scheduled_job():
     print("Checking homepage image")
     subprocess.run(['python3','analysis_control.py'])
 
-    # 5. Compile a gif (once a day, of the last week)
-    if now.hour == 0 and now.minute < 10:
-        print("Step 5: Generating GIF...")
-        generate_gif(n_days=3)
+    # 5. Compile a timelapse
+    if now.minute<5:
+        print("Step 5: generating timelapse...")
+        generate_timelapse_mp4(n_days=3)
+        print("Done!")
+
+    #if now.hour == 0 and now.minute < 10:
+    #    print("Step 5: Generating GIF...")
+    #    generate_gif(n_days=3)
 
     print(f"--- Task Finished at {datetime.now().strftime('%H:%M:%S')} ---")
 

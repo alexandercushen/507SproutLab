@@ -47,8 +47,10 @@
   </div>
 
 <div class="graph-box">
-    <h2>{{"Recent growth:"}}</h2>
-    <img src="{{ url_for('static', filename='timelapse.gif') }}" alt="Timelapse" style="width: 100%; border-radius: 4px;">
+    <h2>Recent growth:</h2>
+    <video autoplay loop muted playsinline style="width: 100%; border-radius: 4px;">
+      <source src="{{ url_for('static', filename='timelapse.mp4') }}" type="video/mp4">
+    </video>
   </div>
 
 </body>
