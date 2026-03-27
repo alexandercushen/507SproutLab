@@ -105,6 +105,8 @@ def scheduled_job():
 
     print(f"--- Task Started at {datetime.now().strftime('%H:%M:%S')} ---")
 
+    now = datetime.now()
+
     # 1. Take Sensor Reading
     print("Step 1: Sensor Reading...")
     script_sensor = os.path.join(os.getcwd(), 'scripts', 'record_temperature_humidity.py')

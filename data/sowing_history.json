@@ -3,7 +3,8 @@
         "plant_id": "0000",
         "species": "lettuce",
         "varietal": "merveille des quatre saisons",
-        "sowing_date": "2026-02-15"
+        "sowing_date": "2026-02-15",
+        "sprout_date": "no sprout"
     },
     {
         "plant_id": "0001",
@@ -57,7 +58,8 @@
         "plant_id": "0009",
         "species": "onion",
         "varietal": "flat of italy",
-        "sowing_date": "2026-03-08"
+        "sowing_date": "2026-03-08",
+        "sprout_date": "2026-03-26"
     },
     {
         "plant_id": "0010",
@@ -75,13 +77,15 @@
         "plant_id": "0012",
         "species": "shallot",
         "varietal": "zebrune",
-        "sowing_date": "2026-03-08"
+        "sowing_date": "2026-03-08",
+        "sprout_date": "2026-03-26"
     },
     {
         "plant_id": "0013",
         "species": "radish",
         "varietal": "easter egg",
-        "sowing_date": "2026-03-08"
+        "sowing_date": "2026-03-08",
+        "sprout_date": "2026-03-13"
     },
     {
         "plant_id": "0014",
@@ -94,13 +98,15 @@
         "plant_id": "0015",
         "species": "radish",
         "varietal": "french breakfast",
-        "sowing_date": "2026-03-08"
+        "sowing_date": "2026-03-08",
+        "sprout_date": "2026-03-12"
     },
     {
         "plant_id": "0016",
         "species": "lettuce",
         "varietal": "ezrilla",
-        "sowing_date": "2026-03-08"
+        "sowing_date": "2026-03-08",
+        "sprout_date": "no sprout"
     },
     {
         "plant_id": "0017",
@@ -118,13 +124,15 @@
         "plant_id": "0019",
         "species": "parsley",
         "varietal": "italian giant",
-        "sowing_date": "2026-03-08"
+        "sowing_date": "2026-03-08",
+        "sprout_date": "2026-03-26"
     },
     {
         "plant_id": "0020",
         "species": "cabbage",
         "varietal": "caraflex",
-        "sowing_date": "2026-03-23"
+        "sowing_date": "2026-03-23",
+        "sprout_date": "2026-03-26"
     },
     {
         "plant_id": "0021",
@@ -160,7 +168,8 @@
         "plant_id": "0026",
         "species": "cauliflower",
         "varietal": "early snowball x",
-        "sowing_date": "2026-03-23"
+        "sowing_date": "2026-03-23",
+        "sprout_date": "2026-03-26"
     },
     {
         "plant_id": "0027",
@@ -245,5 +254,59 @@
         "species": "tomato",
         "varietal": "blue cream berry",
         "sowing_date": "2026-03-24"
+    },
+    {
+        "plant_id": "0042",
+        "species": "tomato",
+        "varietal": "pink brandywine",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0043",
+        "species": "tomato",
+        "varietal": "druzba",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0044",
+        "species": "tomato",
+        "varietal": "san marzano",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0045",
+        "species": "tomato",
+        "varietal": "sweetie",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0046",
+        "species": "tomato",
+        "varietal": "goldie",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0047",
+        "species": "arugula",
+        "varietal": "salad",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0048",
+        "species": "pansy",
+        "varietal": "berna velvet blue",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0049",
+        "species": "basil",
+        "varietal": "dwarf greek",
+        "sowing_date": "2026-03-26"
+    },
+    {
+        "plant_id": "0050",
+        "species": "basil",
+        "varietal": "sweet thai",
+        "sowing_date": "2026-03-26"
     }
 ]

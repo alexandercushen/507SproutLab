@@ -82,8 +82,8 @@ def list_entries():
     print("-" * 40)
 
     for entry in data:
-        sprout_str = f", sprouted {entry['sprout_date']}" if 'sprout_date' in entry else ""
-        print(f"{entry['plant_id']}: {entry['species']}, {entry['varietal']}, sown {entry['sowing_date']}{sprout_str}")
+        sprout_str = f", sprouted: {entry['sprout_date']}" if 'sprout_date' in entry else ""
+        print(f"{entry['plant_id']}: {entry['species']}, {entry['varietal']}, sown: {entry['sowing_date']}{sprout_str}")
         
         
     print("-" * 40)
@@ -212,13 +212,15 @@ def add_sprout_date():
     species = entry['species']
     varietal = entry['varietal']
     
-    date_input = input(f"When did {species}, {varietal} sprout? (YYYY-MM-DD, or Enter for today): ").strip()
+    date_input = input(f"When did {species}, {varietal} sprout? (YYYY-MM-DD, Enter for today, or 'n' for no sprout): ").strip()
     
-    if date_input == "":
+    if date_input.lower() == "n":
+        sprout_date = "no sprout"
+    elif date_input == "":
         sprout_date = datetime.today().strftime('%Y-%m-%d')
     else:
         try:
-            datetime.strptime(date_input, '%Y-%m-%d')  # validate format
+            datetime.strptime(date_input, '%Y-%m-%d')
             sprout_date = date_input
         except ValueError:
             print("Invalid date format. Please use YYYY-MM-DD.")
@@ -228,7 +230,7 @@ def add_sprout_date():
     
     save_data(data)
     
-    print(f"Sprout date {sprout_date} added to entry {plant_id}.")
+    print(f"Sprout date '{sprout_date}' saved for entry {plant_id}.")
 
 # -----------------------------
 # Menu
